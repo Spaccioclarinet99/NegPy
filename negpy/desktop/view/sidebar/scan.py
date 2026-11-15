@@ -287,7 +287,7 @@ class ScanSidebar(QWidget):
         device.addLayout(field_row(tr("Device"), self.device_combo, self.refresh_btn, self.eject_btn))
 
         self.debug_log_btn = StepCombo.of(
-            [level.title() for level in nkscan_log.LEVELS],
+            [tr("Off") if level == "off" else level.title() for level in nkscan_log.LEVELS],
             tr("Write a diagnostics log (nkscan.log) in the NegPy folder, with Trace for a bug report."),
         )
         level = self._settings.nkscan_log_level

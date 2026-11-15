@@ -878,7 +878,7 @@ class ExportSidebar(BaseSidebar):
         self.proof_intent_combo = StepCombo()
         constrain_combo(self.proof_intent_combo)
         for value, label in PROOF_INTENT_LABELS.items():
-            self.proof_intent_combo.addItem(label, value)
+            self.proof_intent_combo.addItem(tr(label), value)
         self.proof_intent_combo.setToolTip(
             tr(
                 "How to handle colors the paper cannot print: Relative Colorimetric clips them, and Perceptual compresses all colors to keep their relations."
@@ -912,8 +912,8 @@ class ExportSidebar(BaseSidebar):
         col.addWidget(
             SliderGroup(
                 cond_row,
-                self._proof_row("Profile", self.proof_profile_combo, railed=True),
-                self._proof_row("Intent", self.proof_intent_combo, railed=True),
+                self._proof_row(tr("Profile"), self.proof_profile_combo, railed=True),
+                self._proof_row(tr("Intent"), self.proof_intent_combo, railed=True),
                 self.proof_bpc_btn,
                 self.proof_paper_white_btn,
                 self.proof_ink_black_btn,

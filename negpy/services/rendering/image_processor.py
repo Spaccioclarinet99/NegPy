@@ -1,3 +1,4 @@
+from negpy.kernel.system.i18n import tr
 import hashlib
 import os
 import ctypes
@@ -1868,8 +1869,11 @@ class ImageProcessor:
             tag = _JXL_COLOR.get(color_space)
             if tag is None:
                 raise ValueError(
-                    f"JPEG XL export does not support the {color_space} color space. "
-                    "Use sRGB, P3 D65, Rec 2020, or Greyscale, or pick another format."
+                    tr(
+                        "JPEG XL export does not support the {color_space} color space. "
+                        "Use sRGB, P3 D65, Rec 2020, or Greyscale, or pick another format.",
+                        color_space=color_space,
+                    )
                 )
             photometric, primaries, transfer = tag
             return (

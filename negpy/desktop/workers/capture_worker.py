@@ -1099,7 +1099,7 @@ class CaptureWorker(QObject):
             candidates = scan_ladder(o.get("label", "") for o in shutter.get("options", []))
             if not candidates or not shutter.get("writable", True):
                 # The built-in ladder is one vendor's vocabulary; another body ignores it (#768).
-                raise RuntimeError("This camera is not reporting settable shutter speeds. Set it to Manual (M), then try again.")
+                raise RuntimeError(tr("This camera is not reporting settable shutter speeds. Set it to Manual (M), then try again."))
             aperture = settings.get("aperture") or {}
             start_levels, start_shutter = normalize_start_point(
                 _setting_label(settings.get("iso")),
@@ -1121,7 +1121,10 @@ class CaptureWorker(QObject):
         except CalibrationExposureError as e:
             logger.info("sensor measurement aborted: %s", e)
             self.sensor_response_failed.emit(
-                f"The {e.channel} exposure clips even at the fastest shutter. Close the aperture or lower the ISO, then try again."
+                tr(
+                    "The {channel} exposure clips even at the fastest shutter. Close the aperture or lower the ISO, then try again.",
+                    channel=e.channel,
+                )
             )
         except Exception as e:
             if req.cancel.is_set() or self._cancel.is_set():
