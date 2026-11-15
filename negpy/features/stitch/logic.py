@@ -101,7 +101,7 @@ def register_parts(
     for i in range(1, len(parts)):
         if is_cancelled():
             raise StitchCancelled("Cancelled")
-        on_progress(i, len(parts) - 1, f"Registering frame {i + 1}")
+        on_progress(i, len(parts) - 1, tr("Registering frame {value}", value=i + 1))
         matrix, _ = register_pair(proxies[i - 1][0], proxies[i][0])
         full = scale_affine(matrix, proxies[i - 1][1], proxies[i][1])
         transforms.append(chain_affine(transforms[i - 1], full))

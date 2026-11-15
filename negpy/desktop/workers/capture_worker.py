@@ -4,6 +4,7 @@ Owns the live Scanlight serial connection (so the RGB sliders stay responsive)
 and one libgphoto2 session, held open across captures and shared with live view.
 """
 
+from negpy.infrastructure.capture.scanlight import ScanlightNotFoundError
 from negpy.kernel.system.i18n import mark, tr
 
 import math
@@ -358,7 +359,7 @@ class CaptureWorker(QObject):
             logger.warning("set_light failed: %s", msg)
             # A missing Scanlight is a persistent condition the Light LED already shows, so keep
             # it out of the shared status line, where it would linger and go stale.
-            if not ("auto-discover" in msg or "No serial ports" in msg):
+            if not isinstance(e, ScanlightNotFoundError):
                 self.error.emit(tr("Scanlight: {e}", e=e))
 
     # ----- capture -----
@@ -756,7 +757,7 @@ class CaptureWorker(QObject):
         while (left := deadline - time.monotonic()) > 0:
             self.countdown.emit(math.ceil(left))
             if self._cancel.wait(min(left, 1.0)):
-                raise CaptureError("canceled before the first exposure")
+                raise CaptureError(tr("canceled before the first exposure"))
         self.countdown.emit(0)
 
     def _cleanup_partial_frame(self, req: CaptureRequest) -> None:

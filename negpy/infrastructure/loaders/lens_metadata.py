@@ -90,7 +90,7 @@ def _read_sony(page: Any) -> LensMetadata:
     warp = SonyWarp(distortion, ca[: len(ca) // 2], ca[len(ca) // 2 :])
     if any(1 + v / 16384 <= 0 for v in distortion):
         raise ValueError(mark("Invalid Sony distortion coefficients."))
-    return LensMetadata("Sony ARW", (warp,), "No nonzero Sony lens correction coefficients.")
+    return LensMetadata("Sony ARW", (warp,), mark("No nonzero Sony lens correction coefficients."))
 
 
 def _read_dng(page: Any) -> LensMetadata:

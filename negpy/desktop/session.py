@@ -2228,7 +2228,7 @@ class DesktopSessionManager(QObject):
         """Persist the active frame's Auto-crop all frames result before it goes live in memory,
         so a storage error never leaves an unsaved crop live."""
         if not self.state.current_file_hash:
-            raise RuntimeError("Cannot persist batch settings without an active file")
+            raise RuntimeError(tr("Cannot persist batch settings without an active file"))
         self.repo.save_file_settings(
             self.state.current_file_hash,
             config,

@@ -2257,7 +2257,7 @@ class NormalizationWorker(QObject):
 
             valid_results = [r for r in batch_results if r is not None]
             if not valid_results:
-                raise RuntimeError("All files in batch failed analysis")
+                raise RuntimeError(tr("All files in batch failed analysis"))
             if task.detect:
                 groups = detect_light_groups([r[3] for r in valid_results])
                 self.detected.emit([[valid_results[i][2] for i in g] for g in groups])

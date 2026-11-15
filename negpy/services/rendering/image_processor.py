@@ -982,7 +982,7 @@ class ImageProcessor:
     def buffer_to_pil(self, buffer: Any, settings: WorkspaceConfig, bit_depth: int = 8) -> Image.Image:
         """Converts float32 buffer to calibrated PIL Image."""
         if not isinstance(buffer, np.ndarray):
-            raise ValueError("Direct GPU textures cannot be converted to PIL without readback.")
+            raise ValueError(tr("Direct GPU textures cannot be converted to PIL without readback."))
 
         t = settings.toning
         # Any toner or split tint makes a B&W print chromatic, so collapsing to a single
@@ -1014,7 +1014,7 @@ class ImageProcessor:
             if buffer.ndim == 2 or (buffer.ndim == 3 and buffer.shape[2] == 1):
                 return Image.fromarray(float_to_uint16(buffer))
             return Image.fromarray(float_to_uint8(buffer))
-        raise ValueError(f"Unsupported bit depth: {bit_depth}")
+        raise ValueError(tr("Unsupported bit depth: {value}", value=bit_depth))
 
     def _decode_sensor_rgb(
         self,
@@ -1188,7 +1188,7 @@ class ImageProcessor:
             # agree on, a triplet has none to agree on even if every frame's gains matched.
             for label, path in (("green", rgbcfg.green_path), ("blue", rgbcfg.blue_path)):
                 if not os.path.exists(path):
-                    raise FileNotFoundError(f"RGB-scan {label} exposure not found: {path}")
+                    raise FileNotFoundError(tr("RGB-scan {value} exposure not found: {value1}", value=label, value1=path))
             siblings = [p for p in dict.fromkeys((rgbcfg.green_path, rgbcfg.blue_path)) if p != file_path]
             with ThreadPoolExecutor(max_workers=1 + len(siblings)) as pool:
                 primary_future = pool.submit(

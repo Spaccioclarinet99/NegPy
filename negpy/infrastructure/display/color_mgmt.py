@@ -191,7 +191,7 @@ def import_icc_profile(src_path: str, dest_dir: str) -> str:
     try:
         ImageCms.getOpenProfile(src_path)
     except Exception as e:
-        raise ValueError(f"Not a readable ICC profile: {e}") from e
+        raise ValueError(tr("Not a readable ICC profile: {value}", value=e)) from e
 
     with open(src_path, "rb") as f:
         payload = f.read()

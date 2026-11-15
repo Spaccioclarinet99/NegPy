@@ -767,7 +767,7 @@ class ExportSidebar(BaseSidebar):
         combo.blockSignals(True)
         combo.clear()
         for key, label in TIFF_GAMMA_OPTIONS:
-            combo.addItem(label, key)
+            combo.addItem(tr(label), key)
         current = self.state.linear_gamma_key
         for i, (key, _label) in enumerate(TIFF_GAMMA_OPTIONS):
             if key == current:
@@ -863,7 +863,7 @@ class ExportSidebar(BaseSidebar):
         )
         self.proof_save_btn = icon_button("fa5s.save", tr("Save the current proof set-up as a named preset"))
         self.proof_delete_btn = icon_button("fa5s.trash", tr("Delete the selected preset"))
-        cond_row = self._proof_row("Preset", self.proof_condition_combo, railed=True)
+        cond_row = self._proof_row(tr("Preset"), self.proof_condition_combo, railed=True)
         cond_row.addWidget(self.proof_save_btn)
         cond_row.addWidget(self.proof_delete_btn)
 
